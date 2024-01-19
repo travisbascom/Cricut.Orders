@@ -5,6 +5,7 @@ namespace Cricut.Orders.Domain
     public interface IOrderDomain
     {
         Task<Order> CreateNewOrderAsync(Order order);
+        Task<Order[]> GetAllOrdersForCustomerAsync(int customerId);
     }
 
     public class OrderDomain : IOrderDomain
@@ -21,5 +22,13 @@ namespace Cricut.Orders.Domain
             var updatedOrder = await _orderStore.SaveOrderAsync(order);
             return updatedOrder;
         }
+
+        public async Task<Order[]> GetAllOrdersForCustomerAsync(int customerId)
+        {
+            var orders = await _orderStore.GetAllOrdersForCustomerAsync(customerId);
+            return orders;
+        }
+
+
     }
 }

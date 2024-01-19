@@ -16,6 +16,17 @@ namespace Cricut.Orders.Api.Mappings
             };
         }
 
+        public static OrderViewModel[] ToViewModel(this Order[] domainModels)
+        {
+            return domainModels.Select(domainModel => new OrderViewModel
+            {
+                Id = domainModel.Id ?? 0,
+                Customer = domainModel.Customer.ToViewModel(),
+                OrderItems = domainModel.OrderItems.ToViewModel(),
+                Total = domainModel.Total
+            }).ToArray();
+        }
+
         private static CustomerViewModel ToViewModel(this Customer domainModel)
         {
             return new CustomerViewModel
